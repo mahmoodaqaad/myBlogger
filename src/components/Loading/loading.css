@@ -1,0 +1,129 @@
+.spinner-content-submit {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    z-index: 122121;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.bars {
+    position: relative;
+
+
+    width: 160px;
+    height: 10px;
+    background-color: rgb(192 159 20);
+
+    border-radius: 10px;
+    border: 0.5px solid;
+    margin: 130px;
+    transform: rotate(-30deg);
+    animation: bars-A 2.3s infinite ease-in-out alternate;
+}
+
+.all {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.ball {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background-color: white;
+    border-radius: 50%;
+    top: -40px;
+    animation: bars-B 2.3s infinite linear alternate both, bars-C 1.2s infinite linear alternate;
+
+    -webkit-animation: bars-B 2.3s infinite linear alternate both, bars-C 1.2s infinite linear alternate;
+}
+
+.ball::before {
+    content: "";
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background-color: rgb(0, 0, 0);
+    border-radius: 50%;
+    left: 7px;
+    top: 7px;
+
+}
+
+@keyframes bars-A {
+    from {
+        transform: rotate(-30deg);
+
+    }
+
+    to {
+        transform: rotate(30deg);
+
+
+    }
+}
+
+@keyframes bars-B {
+    from {
+        left: calc(100% - 20px);
+        transform: rotate(-30deg);
+
+    }
+
+    to {
+        left: calc(0% - 20px);
+
+        transform: rotate(30deg);
+
+
+    }
+}
+
+@keyframes bars-C {
+    from {
+        transform: rotate(0deg);
+
+    }
+
+    to {
+
+        transform: rotate(45000deg);
+
+
+    }
+}
+
+.spinner {
+    margin: 0 10px;
+    width: 50px;
+    height: 50px;
+    /*border-radius: 50%;
+    */
+    border: 4px solid #7e7c7c;
+    border-top: 4px solid white;
+    animation: rotating-spinner 1s linear infinite alternate both;
+    -webkit-animation: rotating-spinner 1.3s linear infinite alternate both;
+}
+
+@keyframes rotating-spinner {
+    from {
+        border-radius: 0;
+        transform: rotate(0);
+        -webkit-border-radius: 0;
+        -moz-border-radius: 0;
+        -ms-border-radius: 0;
+        -o-border-radius: 0;
+    }
+
+    to {
+        border-radius: 50%;
+        transform: rotate(360deg);
+    }
+}

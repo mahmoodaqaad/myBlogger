@@ -1,0 +1,18 @@
+.page404{
+width: 100%;
+height: 100vh;
+display: flex;
+justify-content: center;align-items: center;
+color: white;
+background: #222222;
+flex-direction: column;
+}
+.page404 p{
+    font-size: 4rem;
+    
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.page404 div{
+    margin-top: 30px;
+}
