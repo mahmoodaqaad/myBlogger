@@ -1,10 +1,9 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import { getFirestore, enableIndexedDbPersistence } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
-
     apiKey: "AIzaSyAXENWIvo6R77imXkVmdPGABxShh-ool9Q",
     authDomain: "my-blog-7f375.firebaseapp.com",
     projectId: "my-blog-7f375",
@@ -14,8 +13,20 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const firedb = getFirestore(app)
-const auth = getAuth(app)
-const storage = getStorage(app)
+const firedb = getFirestore(app);
+const auth = getAuth(app);
+const storage = getStorage(app);
+
+// Enable Firestore Offline Persistence
+// Note: This only works in the browser environment
+if (typeof window !== "undefined") {
+    enableIndexedDbPersistence(firedb).catch((err) => {
+        if (err.code === 'failed-precondition') {
+            console.warn("Multiple tabs open, persistence can only be enabled in one tab at a time.");
+        } else if (err.code === 'unimplemented') {
+            console.warn("The current browser does not support all of the features required to enable persistence");
+        }
+    });
+}
 
 export { firedb, auth, storage }

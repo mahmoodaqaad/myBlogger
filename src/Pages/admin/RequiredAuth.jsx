@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Outlet } from 'react-router-dom'
 import Loading from '../../components/Loading/Loading'
-import { firedb, auth } from '../../FireBase/FireBaseConfig'
+import { firedb, auth } from '../../Firebase/FirebaseConfig'
 import { doc, getDoc } from 'firebase/firestore'
 
 const RequiredAuth = ({ alowedRole }) => {

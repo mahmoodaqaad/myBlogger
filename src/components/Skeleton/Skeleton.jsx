@@ -1,14 +1,16 @@
 import React from 'react'
-import Skeleton from 'react-loading-skeleton'
 
-const SkeletonShow = (props) => {
-
-    const skeletonshow = Array.from({ length: props.length ||1 }).map((_, index) => (
-        <div key={index} className={props.className}>
-            <Skeleton width={props.width||"100%"} height={props.height} className="skeleton-custom"></Skeleton>
+const SkeletonShow = ({ length = 1, className = "", width = "100%", height = "100%" }) => {
+    const skeletonItems = Array.from({ length }).map((_, index) => (
+        <div key={index} className={className}>
+            <div
+                className="animate-pulse bg-slate-200 dark:bg-slate-800 rounded-lg"
+                style={{ width, height: height || '1rem' }}
+            ></div>
         </div>
     ));
-    return skeletonshow
+
+    return <>{skeletonItems}</>;
 }
 
-export default SkeletonShow
+export default SkeletonShow;

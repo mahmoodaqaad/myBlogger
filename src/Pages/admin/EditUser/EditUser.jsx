@@ -2,9 +2,9 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Outlet, useNavigate, useParams } from 'react-router-dom'
 import Layout from '../../../components/layout/Layout'
 import { Button, Input, MenuItem, Select } from '@material-tailwind/react'
-import myContext from '../../../context/data/myContext'
+import myContext from '../../../context/Data/myState'
 import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore'
-import { auth, firedb, storage } from '../../../FireBase/FireBaseConfig'
+import { auth, firedb, storage } from '../../../Firebase/FirebaseConfig'
 import { updateEmail } from 'firebase/auth'
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 import toast from 'react-hot-toast'
@@ -29,7 +29,7 @@ const EditUser = () => {
     const navigate = useNavigate();
     const getUser = async () => {
         setLoading(true)
-        
+
         try {
             const res = await getDoc(doc(firedb, 'users', id))
             const data = res.data()
@@ -39,7 +39,7 @@ const EditUser = () => {
                 email: data.email,
                 role: data.role,
                 DateLogin: data.DateLogin
-                
+
             })
             setLoading(false)
 
@@ -61,20 +61,20 @@ const EditUser = () => {
         getUser()
     }, [])
     const EditUserFun = async (e) => {
-        
-        
+
+
         e.preventDefault()
-        
-        
+
+
         try {
-            
+
             if (form.email === auth?.currentUser?.email) {
                 const user = auth?.currentUser;
-                
+
                 await updateEmail(user, form.email);
             }
             uploadImage()
-            
+
         } catch (e) {
             console.error(e);
         }
@@ -84,13 +84,13 @@ const EditUser = () => {
         setLoading(true)
 
         const imageRef = ref(storage, `usersImage/${image.name}`);
-        
-        
+
+
         uploadBytes(imageRef, image).then((snapshot) => {
             getDownloadURL(snapshot.ref).then((url) => {
 
 
-                
+
                 const productRef = doc(firedb, "users", id)
                 try {
                     setDoc(productRef, {
@@ -100,8 +100,8 @@ const EditUser = () => {
                         name: form.name,
                         image: url,
                         DateLogin: form.DateLogin
-                        
-                        
+
+
                     })
                     setLoading(false)
                     toast.success("Edit success")

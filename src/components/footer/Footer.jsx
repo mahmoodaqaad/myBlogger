@@ -1,78 +1,78 @@
-import React, { useContext } from 'react'
-import myContext from '../../context/data/myContext';
+import { useContext } from 'react'
+import { AiFillFacebook, AiFillGithub, AiFillInstagram } from 'react-icons/ai';
+import { MyContext } from '../../context/Data/myState';
 
 function Footer() {
-  const context = useContext(myContext);
-  const { mode } = context;
+  const { mode } = useContext(MyContext);
+  const isDarkMode = mode === 'dark';
+
   return (
-    <footer className="body-font" style={{ background: mode === 'dark' ? 'rgb(30, 41, 59)' : '#30336b' }}>
-      {/* Left Content  */}
-      <div className="container px-5 py-3 mx-auto flex items-center sm:flex-row flex-col">
-        {/* Blog Logo  */}
-        <div className="flex title-font font-medium items-center md:justify-start justify-center text-gray-900">
-          {/* logo  */}
-          <img className='w-10'
-            src="https://cdn-icons-png.flaticon.com/128/3685/3685253.png" alt="logo"
-          />
-          {/* logo text  */}
-          <span className="ml-3 text-xl text-white">
-            Mahmood
-          </span>
+    <footer className={`relative overflow-hidden border-t transition-colors duration-300 ${isDarkMode
+      ? 'bg-slate-900 border-slate-800'
+      : 'bg-white border-slate-100 shadow-[0_-4px_20px_-10px_rgba(0,0,0,0.05)]'
+      }`}>
+      {/* Decorative Blob */}
+      <div className="absolute -bottom-24 -right-24 w-64 h-64 bg-primary-500/5 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div className="container px-6 py-12 mx-auto relative">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+          {/* Brand Section */}
+          <div className="flex flex-col items-center md:items-start text-center md:text-left">
+            <div className="flex items-center gap-3 mb-4 group cursor-pointer">
+              <div className="p-2 bg-primary-500 rounded-xl shadow-lg shadow-primary-500/20 group-hover:rotate-12 transition-transform">
+                <img className='w-6 h-6 invert brightness-0'
+                  src="https://cdn-icons-png.flaticon.com/128/3685/3685253.png" alt="logo"
+                />
+              </div>
+              <span className={`text-xl font-black uppercase tracking-widest ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
+                Mahmood
+              </span>
+            </div>
+            <p className="text-slate-500 text-sm max-w-xs leading-relaxed">
+              Sharing thoughts, stories, and ideas through a modern digital lens. Joined by a community of creators.
+            </p>
+          </div>
+
+          {/* Navigation/Social */}
+          <div className="flex flex-col items-center md:items-end gap-6">
+            <div className="flex items-center gap-4">
+              {[
+                { icon: AiFillFacebook, href: "https://www.facebook.com/profile.php?id=100022618519064", label: "Facebook" },
+                { icon: AiFillInstagram, href: "https://www.instagram.com/dev._mahmood/", label: "Instagram" },
+                { icon: AiFillGithub, href: "https://github.com/mahmoodaqaad", label: "Github" }
+              ].map((social, index) => (
+                <a
+                  key={index}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`p-3 rounded-2xl transition-all hover:-translate-y-1 active:scale-95 ${isDarkMode
+                    ? 'bg-slate-800 text-slate-400 hover:text-primary-400 hover:bg-slate-700'
+                    : 'bg-slate-50 text-slate-500 hover:text-primary-600 hover:bg-slate-100'
+                    }`}
+                  title={social.label}
+                >
+                  <social.icon size={22} />
+                </a>
+              ))}
+            </div>
+
+            <p className="text-xs font-bold uppercase tracking-widest text-slate-400">
+              © 2023 Mahmood Aqaad — All Rights Reserved
+            </p>
+          </div>
         </div>
 
-        {/* items  */}
-        <p className="text-sm text-gray-500 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-200 sm:py-2 sm:mt-0 mt-4">
-          © 2023 Mahmood —
-          <a
-            href="https://twitter.com/knyttneve"
-            className="text-gray-600 ml-1"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            @Mahmood
-          </a>
-        </p>
+        {/* Bottom Bar */}
+        <div className="mt-12 pt-8 border-t border-slate-500/5 text-center">
+          <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 space-x-2">
+            <span>Powered by</span>
 
-        {/* Right item  */}
-        <span className="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start">
-          {/* Icon 1  */}
-          <a className="text-gray-500 pointer" href="https://www.facebook.com/profile.php?id=100022618519064" target="_blank">
-            <svg
-              fill="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              className="w-5 h-5"
-              viewBox="0 0 24 24"
-            >
-              <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" />
-            </svg>
-          </a>
-
-
-
-          {/* Icon 3  */}
-          <a className="ml-3 text-gray-500 pointer" href="https://www.instagram.com/dev._mahmood/" target="_blank">
-
-            <svg
-              fill="none"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              className="w-5 h-5"
-              viewBox="0 0 24 24"
-            >
-              <rect width={20} height={20} x={2} y={2} rx={5} ry={5} />
-              <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01" />
-            </svg>
-          </a>
-
-
-        </span>
+            <span className={isDarkMode ? 'text-accent-400' : 'text-accent-600'}>Mahmmod Aqaad</span>
+          </p>
+        </div>
       </div>
     </footer>
-
   )
 }
 

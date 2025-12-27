@@ -1,9 +1,8 @@
 import React, { useContext } from 'react'
-import myContext from '../../context/data/myContext'
+import { MyContext } from '../../context/Data/myState';
 
 const ShowContent = ({ pargraph }) => {
-    const context = useContext(myContext)
-    const { mode } = context
+    const { mode } = useContext(MyContext)
 
 
 
@@ -45,7 +44,7 @@ const ShowContent = ({ pargraph }) => {
                         ${mode === 'dark' ? '[&>ol]:text-white' : '[&>ol]:text-black'}
 
                         [&>img]:rounded-lg
-                        `} dangerouslySetInnerHTML={createMarkup( pargraph )}></div>
+                        `} dangerouslySetInnerHTML={createMarkup(pargraph)}></div>
         </div>
     )
 }

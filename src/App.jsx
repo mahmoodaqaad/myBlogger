@@ -5,21 +5,20 @@ import {
 
   Outlet,
 } from "react-router-dom";
-import Home from "./pages/home/Home";
-import Blog from "./pages/blog/Blog";
-import AllBlogs from "./pages/allBlogs/AllBlogs";
-import NoPage from "./pages/nopage/NoPage";
-import BlogInfo from "./pages/blogInfo/BlogInfo";
-import AdminLogin from "./pages/admin/adminLogin/AdminLogin";
-import Dashboard from "./pages/admin/dashboard/Dashboard";
+import Home from "./Pages/Home/Home";
+import Blog from "./Pages/blog/Blog";
+import AllBlogs from "./Pages/allBlogs/AllBlogs";
+import NoPage from "./Pages/nopage/NoPage";
+import BlogInfo from "./Pages/blogInfo/BlogInfo";
+import AdminLogin from "./Pages/admin/adminLogin/AdminLogin";
+import Dashboard from "./Pages/admin/dashboard/Dashboard";
 import MyState from "./context/Data/myState";
-import CreateBlog from "./pages/admin/createBlog/CreateBlog";
+import CreateBlog from "./Pages/admin/createBlog/createBlog";
 import { Toaster } from "react-hot-toast";
 import Editblog from "./Pages/admin/Editblog/Editblog";
 import './app.css'
 import Register from "./Pages/admin/AdminRegster/AdminRejester";
 import EditUser from "./Pages/admin/EditUser/EditUser";
-import AddUser from "./Pages/admin/AddUser/AddUser";
 import RequiredAuth from "./Pages/admin/RequiredAuth";
 import Layout from "./components/layout/Layout";
 function App() {
