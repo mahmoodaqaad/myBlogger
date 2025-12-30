@@ -38,7 +38,7 @@ const BlogInfo = () => {
 
   useEffect(() => {
     getBlogData();
-    window.scrollTo(0, 0)
+    // window.scrollTo(0, 0)
   }, [getBlogData]);
 
   return (

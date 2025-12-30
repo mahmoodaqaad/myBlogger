@@ -1,17 +1,17 @@
 import { useState, useContext, useEffect } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 import { BsArrowLeft } from "react-icons/bs"
-import myContext from '../../../context/Data/myState';
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Timestamp, doc, getDoc, updateDoc } from 'firebase/firestore';
 import toast from 'react-hot-toast';
 import { firedb } from '../../../Firebase/FirebaseConfig';
 import Loading from '../../../components/Loading/Loading';
 import ShowContent from '../../../components/ShowContent/ShowContent';
+import { MyContext } from '../../../context/Data/myState';
 
 function Editblog() {
-    const context = useContext(myContext);
-    const { mode } = context;
+    const context = useContext(MyContext);
+    const mode = context?.mode || 'light';
     const [loading, setLoading] = useState(false)
     const { id } = useParams()
     const navigate = useNavigate();

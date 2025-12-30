@@ -1,15 +1,15 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useContext, useState } from 'react'
 import Layout from '../../../components/layout/Layout'
-import { Button, Input, MenuItem, Select } from '@material-tailwind/react'
-import myContext from '../../../context/Data/myState'
-import { addDoc, doc, getDoc, setDoc, updateDoc } from 'firebase/firestore'
+import { Button, Input, MenuItem } from '@material-tailwind/react'
+import { doc, setDoc } from 'firebase/firestore'
 import { auth, firedb, storage } from '../../../Firebase/FirebaseConfig'
-import { createUserWithEmailAndPassword, getAdditionalUserInfo, updateEmail } from 'firebase/auth'
+import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
+import { MyContext } from '../../../context/Data/myState'
 
 const AddUser = () => {
-    const context = useContext(myContext);
+    const context = useContext(MyContext);
+    const mode = context?.mode || 'light';
     const [image, SetIamge] = useState()
     const [form, setForm] = useState({
         email: "",
@@ -19,7 +19,6 @@ const AddUser = () => {
         image: ""
 
     })
-    const { mode } = context;
 
     function handleChange(e) {
 

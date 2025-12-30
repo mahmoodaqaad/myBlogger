@@ -22,13 +22,12 @@ import EditUser from "./Pages/admin/EditUser/EditUser";
 import RequiredAuth from "./Pages/admin/RequiredAuth";
 import Layout from "./components/layout/Layout";
 function App() {
-  return (
+  return (<>
     <MyState>
       <Router>
-        <Layout>
           <Routes>
 
-
+            <Route element={<Layout />}>
             <Route path="/" element={<Home />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/allblogs" element={<AllBlogs />} />
@@ -68,12 +67,17 @@ function App() {
 
 
 
-            <Route path="/*" element={<NoPage />} />
+              <Route path="/*" element={<NoPage />} />
+            </Route>
+
           </Routes>
           <Toaster />
-        </Layout>
       </Router>
     </MyState >
+
+
+  </>
+
   )
 }
 

@@ -2,17 +2,17 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Outlet, useNavigate, useParams } from 'react-router-dom'
 import Layout from '../../../components/layout/Layout'
 import { Button, Input, MenuItem, Select } from '@material-tailwind/react'
-import myContext from '../../../context/Data/myState'
 import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore'
 import { auth, firedb, storage } from '../../../Firebase/FirebaseConfig'
 import { updateEmail } from 'firebase/auth'
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 import toast from 'react-hot-toast'
 import Loading from '../../../components/Loading/Loading'
+import { MyContext } from '../../../context/Data/myState'
 
 const EditUser = () => {
-    const context = useContext(myContext);
     const [user, setUser] = useState()
+
     const [image, SetIamge] = useState()
     const [loading, setLoading] = useState(false)
     const [form, setForm] = useState({
@@ -23,7 +23,7 @@ const EditUser = () => {
         DateLogin: ""
 
     })
-    const { mode } = context;
+    const { mode } = useContext(MyContext);
 
     const { id } = useParams()
     const navigate = useNavigate();
@@ -60,6 +60,7 @@ const EditUser = () => {
 
         getUser()
     }, [])
+
     const EditUserFun = async (e) => {
 
 
@@ -80,45 +81,72 @@ const EditUser = () => {
         }
     }
     const uploadImage = () => {
-        if (!image) return;
+        // if (!image) return;
         setLoading(true)
 
-        const imageRef = ref(storage, `usersImage/${image.name}`);
+        if (image) {
+
+            const imageRef = ref(storage, `usersImage/${image.name}`);
 
 
-        uploadBytes(imageRef, image).then((snapshot) => {
-            getDownloadURL(snapshot.ref).then((url) => {
+            uploadBytes(imageRef, image).then((snapshot) => {
+                getDownloadURL(snapshot.ref).then((url) => {
 
 
 
-                const productRef = doc(firedb, "users", id)
-                try {
-                    setDoc(productRef, {
-                        role: Number(form.role),
-                        id: id,
-                        email: form.email,
-                        name: form.name,
-                        image: url,
-                        DateLogin: form.DateLogin
+                    const productRef = doc(firedb, "users", id)
+                    try {
+                        setDoc(productRef, {
+                            role: Number(form.role),
+                            id: id,
+                            email: form.email,
+                            name: form.name,
+                            image: url,
+                            DateLogin: form.DateLogin
 
 
-                    })
-                    setLoading(false)
-                    toast.success("Edit success")
-                    navigate("/dashboard")
+                        })
+                        setLoading(false)
+                        toast.success("Edit success")
+                        navigate("/dashboard")
 
-                } catch (error) {
-                    toast.error("Edit Files")
-                    console.error(error)
-                }
+                    } catch (error) {
+                        setLoading(false)
+                        toast.error("Edit Files")
+                        console.error(error)
+                    }
+                });
             });
-        });
+        }
+        else {
+            const productRef = doc(firedb, "users", id)
+            try {
+                setDoc(productRef, {
+                    role: Number(form.role),
+                    id: id,
+                    email: form.email,
+                    name: form.name,
+                    image: user?.image,
+                    DateLogin: form.DateLogin
+
+
+                })
+                setLoading(false)
+                toast.success("Edit success")
+                navigate("/dashboard")
+
+            } catch (error) {
+                setLoading(false)
+                toast.error("Edit Files")
+                console.error(error)
+            }
+        }
     }
     return (<>
 
         {loading && <Loading />}
-        <div className="container mx-auto max-w-5xl py-6 px-2">
-            <form onSubmit={EditUserFun} className="flex flex-col gap-4">
+        <div className="container mx-auto max-w-5xl py-6 px-2 mt-5">
+            <form onSubmit={EditUserFun} className="flex flex-col gap-4 mt-5">
                 {/* Input Email */}
                 <Input
                     disabled={id === auth?.currentUser?.uid ? false : true}
@@ -169,7 +197,7 @@ const EditUser = () => {
 
                 {/* Input Image */}
                 <Input
-                    required
+
                     onChange={(e) => SetIamge(e.target.files[0])}
                     label="Upload Image"
                     type="file"

@@ -7,7 +7,6 @@ import { MyContext } from '../../context/Data/myState';
 function BlogPostCard() {
   const { mode, getAllBlog, loading, error , getAllBlogs } = useContext(MyContext); 
   const navigate = useNavigate()
-  console.log(getAllBlog);
   useEffect(() => {
     getAllBlogs()
   }, [])

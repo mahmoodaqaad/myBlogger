@@ -1,7 +1,6 @@
 import { useState, useContext } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 import { BsArrowLeft } from "react-icons/bs"
-import myContext from '../../../context/Data/myState';
 import { Link, useNavigate } from "react-router-dom";
 import { Timestamp, addDoc, collection } from 'firebase/firestore';
 import toast from 'react-hot-toast';
@@ -9,11 +8,12 @@ import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { firedb, storage } from '../../../Firebase/FirebaseConfig';
 import Loading from '../../../components/Loading/Loading';
 import ShowContent from '../../../components/ShowContent/ShowContent';
+import { MyContext } from '../../../context/Data/myState';
 
 function CreateBlog() {
-  const context = useContext(myContext);
-  const { mode, user } = context;
-  const [loading, setLoading] = useState(false)
+  const context = useContext(MyContext);
+  const mode = context?.mode || 'light';
+  const user = context?.user || null;  const [loading, setLoading] = useState(false)
   const navigate = useNavigate();
 
   const [blogs, setBlogs] = useState({
@@ -70,7 +70,7 @@ function CreateBlog() {
           setLoading(false)
         }
       });
-    }).catch((error) => {
+    }).catch(() => {
       toast.error("Failed to upload image");
       setLoading(false);
     });
@@ -167,21 +167,24 @@ function CreateBlog() {
             {/* Content Editor */}
             <div className="space-y-4">
               <label className={`block text-[10px] font-black uppercase tracking-widest ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>
-                What's on your mind?
+                What{"'"}s on your mind?
               </label>
               <div className={`rounded-3xl overflow-hidden border ${isDarkMode ? 'border-slate-800 shadow-inner' : 'border-slate-100'}`}>
                 <Editor
                   apiKey='g446uqbn2t8nk0ou4etgiut98y9skofgq2g8md61co69s89s'
                   init={{
+                    selector: "textarea",
+                    
                     height: 500,
                     menubar: false,
                     plugins: [
                       'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
                       'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
-                      'insertdatetime', 'media', 'table', 'code', 'help', 'wordcount'
+                      'insertdatetime', 'media', 'table', 'code', 'help', 'wordcount',
                     ],
-                    toolbar: 'undo redo | blocks | bold italic forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help',
+                    toolbar: 'undo redo | blocks | bold italic forecolor | image | preview |link | code | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help',
                     content_style: 'body { font-family:Outfit,sans-serif; font-size:14px }',
+                    link_default_target: '_blank',
                     skin: isDarkMode ? 'oxide-dark' : 'oxide',
                     content_css: isDarkMode ? 'dark' : 'default',
                   }}

@@ -1,5 +1,6 @@
 import Navbar from '../navbar/Navbar'
 import Footer from '../footer/Footer'
+import { Outlet } from 'react-router-dom'
 
 
 // eslint-disable-next-line react/prop-types
@@ -8,8 +9,8 @@ const Layout = ({ children }) => {
         <div>
             <Navbar />
             <div className='content min-h-screen'>
-                
-           {children}
+
+                <Outlet />
             </div>
 
             <Footer />

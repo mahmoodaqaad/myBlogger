@@ -85,7 +85,7 @@ function MyState({ children }) {
         setloading(true);
         setError(null);
         try {
-            const q = query(collection(firedb, "blogPost"), orderBy('time'));
+            const q = query(collection(firedb, "blogPost"), orderBy('time','desc'));
             const querySnapshot = await getDocs(q);
             const blogArray = querySnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
             setGetAllBlog(blogArray); // تحديث state مرة واحدة
